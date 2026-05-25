@@ -1,0 +1,145 @@
+/* ══════════════════════════════════════════
+   ELYSIUM ONLINE — Medieval Login Theme
+   ══════════════════════════════════════════ */
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'MedievalSharp', cursive;
+    width: 260px;
+    margin: 0 auto;
+    user-select: none;
+    position: relative;
+}
+
+.game-title {
+    font-size: 30px;
+    color: #d4a017;
+    text-shadow:
+        2px 2px 4px #000,
+        0 0 20px rgba(212, 160, 23, 0.4),
+        0 0 40px rgba(212, 160, 23, 0.15);
+    margin-bottom: 20px;
+    text-align: center;
+    letter-spacing: 2px;
+    white-space: nowrap;
+}
+
+.login-form {
+    background: linear-gradient(145deg, #2a1a0a, #1e1008);
+    border: 2px solid #8b6914;
+    border-radius: 8px;
+    padding: 22px 20px;
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow:
+        0 0 30px rgba(139, 105, 20, 0.25),
+        inset 0 0 30px rgba(0, 0, 0, 0.6);
+}
+
+.form-group {
+    margin-bottom: 14px;
+}
+
+.form-group label {
+    display: block;
+    color: #c9a84c;
+    font-size: 13px;
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 7px 10px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid #6b5210;
+    border-radius: 4px;
+    color: #e8d5a3;
+    font-size: 12px;
+    font-family: 'MedievalSharp', cursive;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-group input:focus {
+    border-color: #d4a017;
+    box-shadow: 0 0 10px rgba(212, 160, 23, 0.4);
+}
+
+.form-group input::placeholder {
+    color: #6a5a3a;
+    font-style: italic;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 9px;
+    background: linear-gradient(to bottom, #c9920f, #7a5a0a);
+    border: 2px solid #d4a017;
+    border-radius: 6px;
+    color: #1a0a00;
+    font-size: 14px;
+    font-family: 'MedievalSharp', cursive;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    letter-spacing: 1px;
+    margin-top: 5px;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.2);
+}
+
+.login-btn:hover {
+    background: linear-gradient(to bottom, #e0a820, #9a7210);
+    box-shadow: 0 0 20px rgba(212, 160, 23, 0.5);
+    transform: translateY(-1px);
+}
+
+.login-btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 0 8px rgba(212, 160, 23, 0.3);
+}
+
+.login-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 14px;
+    gap: 10px;
+}
+
+/* ── Esqueci minha senha (branco, pequeno, sem ícones) ── */
+.link-forgot {
+    color: #ffffff;
+    font-size: 9px;
+    text-decoration: none;
+    transition: opacity 0.3s;
+}
+
+.link-forgot:hover {
+    opacity: 0.7;
+}
+
+/* ── Criar nova conta (destacado com hover) ── */
+.link-create {
+    color: #d4a017;
+    font-size: 13px;
+    text-decoration: none;
+    font-weight: bold;
+    letter-spacing: 1px;
+    padding: 4px 12px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: all 0.3s;
+}
+
+.link-create:hover {
+    color: #f5c842;
+    text-shadow: 0 0 15px rgba(245, 200, 66, 0.6);
+    border-color: rgba(212, 160, 23, 0.4);
+    background: rgba(212, 160, 23, 0.1);
+    transform: scale(1.05);
+}

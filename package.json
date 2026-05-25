@@ -1,0 +1,23 @@
+{
+  "name": "tibia-web-v2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "phaser": "^4.1.0"
+  },
+  
+  "devDependencies": {
+    "vite": "^8.0.13"
+  }
+}

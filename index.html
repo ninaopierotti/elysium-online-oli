@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Elysium Online</title>
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/src/styles/game.css" />
+</head>
+<body>
+
+    <!-- ═══════════════════════════ -->
+    <!-- LOGIN SCREEN               -->
+    <!-- ═══════════════════════════ -->
+    <div id="login-screen">
+        <div class="login-wrapper">
+            <div class="login-block login-logo-block">
+                <img src="/login-logo.png" alt="Elysium Online" class="login-logo-img" />
+            </div>
+            <div class="login-divider"></div>
+            <div class="login-block login-form-block">
+                <div class="login-form">
+                    <input type="text" id="login-name" placeholder="Character Name" maxlength="16" autofocus />
+                    <button id="login-btn">Enter World</button>
+                    <div class="login-footer">v0.8 — Hybrid UI</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════ -->
+    <!-- GAME WRAPPER               -->
+    <!-- ═══════════════════════════ -->
+    <div id="game-wrapper">
+
+        <!-- Phaser Canvas -->
+        <div id="game-container"></div>
+
+        <!-- ── HUD: Top-Left (HP/Mana/EXP) ── -->
+        <div id="player-hud">
+            <div class="hud-name" id="hud-player-name">Player</div>
+            <div class="hud-level" id="hud-level">Level 1 — Knight</div>
+            <div class="hud-bar-row">
+                <span class="hud-bar-label">HP</span>
+                <div class="hud-bar hp">
+                    <div class="hud-bar-fill" id="hud-hp-fill"></div>
+                    <span class="hud-bar-text" id="hud-hp-text">100/100</span>
+                </div>
+            </div>
+            <div class="hud-bar-row">
+                <span class="hud-bar-label">MP</span>
+                <div class="hud-bar mana">
+                    <div class="hud-bar-fill" id="hud-mana-fill"></div>
+                    <span class="hud-bar-text" id="hud-mana-text">50/50</span>
+                </div>
+            </div>
+            <div class="hud-bar-row">
+                <span class="hud-bar-label">EXP</span>
+                <div class="hud-bar exp">
+                    <div class="hud-bar-fill" id="hud-exp-fill"></div>
+                    <span class="hud-bar-text" id="hud-exp-text">0%</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── RIGHT HUD ── -->
+        <div id="right-hud">
+            
+            <div id="game-info-panel" class="hud-panel game-logo-panel">
+                <img src="/login-logo.png" alt="Elysium Online" class="hud-logo-img" />
+            </div>
+
+
+            <div id="player-info-panel" class="hud-panel">
+                <div class="hud-pname" id="hud-sidebar-name">Player</div>
+                <div class="hud-pinfo">
+                    <span id="hud-sidebar-level">Level 1</span> — <span id="hud-sidebar-vocation">Knight</span>
+                </div>
+                <div class="hud-bar-row">
+                    <span class="hud-blabel">HP</span>
+                    <div class="hud-bbar hp">
+                        <div class="hud-bbar-fill" id="sidebar-hp-fill"></div>
+                        <span class="hud-bbar-text" id="sidebar-hp-text">100/100</span>
+                    </div>
+                </div>
+                <div class="hud-bar-row">
+                    <span class="hud-blabel">MP</span>
+                    <div class="hud-bbar mana">
+                        <div class="hud-bbar-fill" id="sidebar-mana-fill"></div>
+                        <span class="hud-bbar-text" id="sidebar-mana-text">50/50</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="minimap-panel" class="hud-panel">
+                <canvas id="minimap-canvas" width="160" height="160"></canvas>
+                <div class="hud-map-name">🗺️ Floresta de Elysium</div>
+            </div>
+
+            <div id="battle-panel" class="hud-panel">
+                <div class="panel-title-sm">⚔️ Battle List</div>
+                <div class="battle-list" id="battle-list">
+                    <div class="battle-empty">Nenhuma criatura.</div>
+                </div>
+            </div>
+        </div>
+
+<!-- ── BOTTOM: Chat & Log Panel ── -->
+        <div id="chat-panel">
+            <div class="chat-tabs">
+                <div class="chat-tab active" data-tab="geral">Geral</div>
+                <div class="chat-tab" data-tab="npc">NPCs</div>
+                <div class="chat-tab" data-tab="gamelog">Game Log</div>
+            </div>
+            <div class="chat-body">
+                <div class="chat-messages active" id="chat-geral">
+                    <div class="chat-msg chat-system">Bem-vindo ao Elysium Online!</div>
+                </div>
+                <div class="chat-messages" id="chat-npc">
+                    <div class="chat-msg chat-system">Nenhuma conversa com NPCs ainda.</div>
+                </div>
+                <div class="chat-messages" id="chat-gamelog">
+                    <div class="log-entry log-system">Bem-vindo ao Elysium Online!</div>
+                </div>
+            </div>
+            <div class="chat-input-row">
+                <input type="text" id="chat-input" placeholder="Pressione ENTER para falar..." maxlength="120" />
+                <button id="chat-send">▶</button>
+            </div>
+        </div>
+
+        <!-- ── BOTTOM: Hotbar ── -->
+        <div id="hotbar">
+            <div class="hotbar-slot potion-slot" data-hotbar="0">
+                <span class="hotbar-icon"></span>
+                <span class="hotbar-qty"></span>
+                <span class="hotbar-key">F1</span>
+            </div>
+            <div class="hotbar-slot potion-slot" data-hotbar="1">
+                <span class="hotbar-icon"></span>
+                <span class="hotbar-qty"></span>
+                <span class="hotbar-key">F2</span>
+            </div>
+            <div class="hotbar-divider"></div>
+            <div class="hotbar-slot skill-slot" data-hotbar="2">
+                <span class="hotbar-icon"></span>
+                <span class="hotbar-key">1</span>
+            </div>
+            <div class="hotbar-slot skill-slot" data-hotbar="3">
+                <span class="hotbar-icon"></span>
+                <span class="hotbar-key">2</span>
+            </div>
+            <div class="hotbar-slot skill-slot" data-hotbar="4">
+                <span class="hotbar-icon"></span>
+                <span class="hotbar-key">3</span>
+            </div>
+            <div class="hotbar-slot skill-slot" data-hotbar="5">
+                <span class="hotbar-icon"></span>
+                <span class="hotbar-key">4</span>
+            </div>
+            <div class="hotbar-divider"></div>
+            <div class="hotbar-btn" id="btn-bag" title="Inventário (B)">🎒</div>
+            <div class="hotbar-btn" id="btn-equip" title="Equipamentos (E)">🛡️</div>
+            <div class="hotbar-btn" id="btn-stats" title="Status (C)">📊</div>
+        </div>
+
+        <!-- ═══════════════════════════ -->
+        <!-- FLOATING WINDOWS           -->
+        <!-- ═══════════════════════════ -->
+
+        <!-- BAG -->
+        <div id="bag-window" class="floating-window" style="display:none;">
+            <div class="window-header">
+                <span>🎒 Inventário</span>
+                <span class="window-close" data-window="bag-window">✕</span>
+            </div>
+            <div class="window-body">
+                <div class="loot-grid" id="loot-grid">
+                    <div class="loot-slot empty" data-index="0"></div>
+                    <div class="loot-slot empty" data-index="1"></div>
+                    <div class="loot-slot empty" data-index="2"></div>
+                    <div class="loot-slot empty" data-index="3"></div>
+                    <div class="loot-slot empty" data-index="4"></div>
+                    <div class="loot-slot empty" data-index="5"></div>
+                    <div class="loot-slot empty" data-index="6"></div>
+                    <div class="loot-slot empty" data-index="7"></div>
+                    <div class="loot-slot empty" data-index="8"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EQUIPMENT -->
+        <div id="equip-window" class="floating-window" style="display:none;">
+            <div class="window-header">
+                <span>🛡️ Equipamentos</span>
+                <span class="window-close" data-window="equip-window">✕</span>
+            </div>
+            <div class="window-body">
+                <div class="equipment-grid">
+                    <div class="equip-slot" data-slot="necklace"><span class="slot-icon">📿</span><span class="slot-label">Colar</span></div>
+                    <div class="equip-slot" data-slot="helmet"><span class="slot-icon">⛑️</span><span class="slot-label">Capacete</span></div>
+                    <div class="equip-slot" data-slot="ring"><span class="slot-icon">💍</span><span class="slot-label">Anel</span></div>
+                    <div class="equip-slot" data-slot="weapon"><span class="slot-icon">⚔️</span><span class="slot-label">Arma</span></div>
+                    <div class="equip-slot" data-slot="armor"><span class="slot-icon">🦺</span><span class="slot-label">Armadura</span></div>
+                    <div class="equip-slot" data-slot="shield"><span class="slot-icon">🔰</span><span class="slot-label">Escudo</span></div>
+                    <div class="equip-slot" data-slot="utilities"><span class="slot-icon">🧪</span><span class="slot-label">Utensílios</span></div>
+                    <div class="equip-slot" data-slot="legs"><span class="slot-icon">👖</span><span class="slot-label">Calças</span></div>
+                    <div class="equip-slot" data-slot="boots"><span class="slot-icon">🥾</span><span class="slot-label">Botas</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- STATS -->
+        <div id="stats-window" class="floating-window" style="display:none;">
+            <div class="window-header">
+                <span>📊 Status</span>
+                <span class="window-close" data-window="stats-window">✕</span>
+            </div>
+            <div class="window-body">
+                <div class="stats-section">
+                    <div class="stats-row"><span>Level:</span><span id="char-level">1</span></div>
+                    <div class="stats-row"><span>EXP Total:</span><span id="char-exp-total">0</span></div>
+                    <div class="stats-row"><span>Próx. Level:</span><span id="char-exp-next">100</span></div>
+                    <div class="stats-row"><span>Capacidade:</span><span id="char-capacity">0/100</span></div>
+                </div>
+                <div class="stats-divider">— Skills —</div>
+                <div class="stats-section">
+                    <div class="stats-row">
+                        <span>Sword:</span>
+                        <div class="stats-bar"><div class="stats-bar-fill" id="skill-sword-bar"></div></div>
+                        <span class="stats-val" id="skill-sword-pct">10</span>
+                    </div>
+                    <div class="stats-row">
+                        <span>Axe:</span>
+                        <div class="stats-bar"><div class="stats-bar-fill" id="skill-axe-bar"></div></div>
+                        <span class="stats-val" id="skill-axe-pct">10</span>
+                    </div>
+                    <div class="stats-row">
+                        <span>Club:</span>
+                        <div class="stats-bar"><div class="stats-bar-fill" id="skill-club-bar"></div></div>
+                        <span class="stats-val" id="skill-club-pct">10</span>
+                    </div>
+                    <div class="stats-row">
+                        <span>Magic:</span>
+                        <div class="stats-bar"><div class="stats-bar-fill" id="skill-magic-bar"></div></div>
+                        <span class="stats-val" id="skill-magic-pct">10</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Tooltip global -->
+    <div id="global-tooltip" class="global-tooltip"></div>
+
+    <script type="module" src="/src/main.js"></script>
+</body>
+</html>
